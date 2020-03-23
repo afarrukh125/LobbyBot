@@ -25,18 +25,30 @@ public abstract class Command {
         return this;
     }
 
+    /**
+     * Executes the command given the context (event)
+     * @param event The event context to execute according to
+     * @param params Potential parameters for this command execution
+     */
     public abstract void execute(GuildMessageReceivedEvent event, List<String> params);
 
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns a description for this command
+     * @return A string corresponding to a description of this command
+     */
     public abstract String getDescription();
 
     public List<String> getParameters() {
         return Collections.unmodifiableList(parameters);
     }
 
+    /**
+     * @return A list of aliases of this command
+     */
     public Set<String> getAliases() {
         return Collections.unmodifiableSet(aliases);
     }
