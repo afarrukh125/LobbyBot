@@ -21,7 +21,7 @@ public class CommandManager {
 
         // Adds any space separated strings to the parameter list
         commandOptional.ifPresent(command -> {
-            String[] tokens = event.getMessage().getContentRaw().substring(1).split(" ", 2);
+            String[] tokens = event.getMessage().getContentRaw().substring(1).toLowerCase().split(" ", 2);
             List<String> paramList = new ArrayList<>();
             if(hasParams(tokens)) {
                 final String params = tokens[1].trim();
@@ -32,10 +32,10 @@ public class CommandManager {
     }
 
     public void register(Command command) {
-        commands.put(command.getName(), command);
+        commands.put(command.getName().toLowerCase(), command);
 
         for(String alias : command.getAliases())
-            commands.put(alias, command);
+            commands.put(alias.toLowerCase(), command);
     }
 
     private boolean hasParams(String[] tokens) {

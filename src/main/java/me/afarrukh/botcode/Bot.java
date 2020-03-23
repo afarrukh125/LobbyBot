@@ -25,7 +25,7 @@ public class Bot {
         commandManager = new CommandManager();
         prefix = "!";
 
-        installCommands();
+        // installCommands();
     }
 
     /**
@@ -45,7 +45,7 @@ public class Bot {
 
     public void handleCommandEvent(GuildMessageReceivedEvent event) {
         // If the event message is, e.g. !cmd testing testing, commandName is set to "cmd"
-        String commandName = event.getMessage().getContentRaw().substring(1).split(" ")[0];
+        String commandName = event.getMessage().getContentRaw().substring(1).split(" ")[0].toLowerCase();
         commandManager.handleCommand(commandName, event);
     }
 
