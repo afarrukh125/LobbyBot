@@ -62,4 +62,9 @@ public class Bot {
     public JDA getBotUser() {
         return botUser;
     }
+
+    public Bot registerCommand(Command command) {
+        commandManager.register(command);
+        return this;
+    }
 }
