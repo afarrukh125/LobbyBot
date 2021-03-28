@@ -1,6 +1,7 @@
 package me.afarrukh.botcode;
 
 import me.afarrukh.botcode.commands.LatencyCommand;
+import me.afarrukh.botcode.lobby.LobbyManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -17,6 +18,7 @@ public class Bot {
 
     private JDA botUser;
     private CommandManager commandManager;
+    private LobbyManager lobbyManager;
 
     private static String prefix;
 
@@ -24,6 +26,8 @@ public class Bot {
         botUser = new JDABuilder(token).addEventListeners(new MessageListener()).build();
         commandManager = new CommandManager();
         prefix = "!";
+
+        lobbyManager = new LobbyManager();
 
         // installCommands();
     }
@@ -66,5 +70,9 @@ public class Bot {
     public Bot registerCommand(Command command) {
         commandManager.register(command);
         return this;
+    }
+
+    public LobbyManager getLobbyManager() {
+        return lobbyManager;
     }
 }
