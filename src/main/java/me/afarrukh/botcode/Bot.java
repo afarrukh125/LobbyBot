@@ -1,12 +1,18 @@
 package me.afarrukh.botcode;
 
+import me.afarrukh.botcode.commands.CreateLobbyCommand;
+import me.afarrukh.botcode.commands.DeleteLobbyCommand;
+import me.afarrukh.botcode.commands.HelpCommand;
 import me.afarrukh.botcode.commands.LatencyCommand;
 import me.afarrukh.botcode.lobby.LobbyManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import javax.security.auth.login.LoginException;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Abdullah Farrukh
@@ -22,14 +28,20 @@ public class Bot {
 
     private static String prefix;
 
-    private Bot(String token) throws LoginException {
-        botUser = new JDABuilder(token).addEventListeners(new MessageListener()).build();
+    private Bot(String token) throws LoginException, InterruptedException {
+        botUser = JDABuilder.create(token, GatewayIntent.GUILD_MESSAGES,
+                GatewayIntent.GUILD_MEMBERS,
+                GatewayIntent.DIRECT_MESSAGES,
+                GatewayIntent.GUILD_VOICE_STATES,
+                GatewayIntent.GUILD_MESSAGE_REACTIONS,
+                GatewayIntent.GUILD_MESSAGES)
+                .addEventListeners(new MessageListener())
+                .build().awaitReady();
         commandManager = new CommandManager();
         prefix = "!";
 
         lobbyManager = new LobbyManager();
-
-        // installCommands();
+        installCommands();
     }
 
     /**
@@ -38,10 +50,12 @@ public class Bot {
      * execute method. Then register it here and the bot will listen out for it.
      */
     private void installCommands() {
-        commandManager.register(new LatencyCommand());
+        commandManager.register(new CreateLobbyCommand())
+                      .register(new DeleteLobbyCommand())
+                      .register(new HelpCommand());
     }
 
-    public static void init(String token) throws LoginException {
+    public static void init(String token) throws LoginException, InterruptedException {
         if(instance != null)
             throw new IllegalStateException("Bot has already been initialised.");
         instance = new Bot(token);
@@ -57,6 +71,10 @@ public class Bot {
         if(instance == null)
             throw new IllegalStateException("Bot has not been initialised. Please use Bot#init() to create the bot");
         return instance;
+    }
+
+    public Collection<Command> getCommands() {
+        return commandManager.getCommands();
     }
 
     public String getPrefix() {

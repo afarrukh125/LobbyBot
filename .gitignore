@@ -1,6 +1,7 @@
 .idea
 target
 out
+lobbies.dat
 
 pom.xml.tag
 pom.xml.releaseBackup

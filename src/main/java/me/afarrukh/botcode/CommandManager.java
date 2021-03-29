@@ -31,11 +31,17 @@ public class CommandManager {
         });
     }
 
-    public void register(Command command) {
+    public CommandManager register(Command command) {
         commands.put(command.getName().toLowerCase(), command);
 
         for(String alias : command.getAliases())
             commands.put(alias.toLowerCase(), command);
+
+        return this;
+    }
+
+    public Collection<Command> getCommands() {
+        return Collections.unmodifiableCollection(commands.values());
     }
 
     private boolean hasParams(String[] tokens) {
