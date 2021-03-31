@@ -24,10 +24,10 @@ public class LobbyManager {
 
     @SuppressWarnings("unchecked")
     public LobbyManager() {
-        ObjectInputStream in;
+        ObjectInputStream inputStream;
         try {
-            in = new ObjectInputStream(new FileInputStream(FILE_NAME));
-            lobbies = (Map<String, Lobby>) in.readObject();
+            inputStream = new ObjectInputStream(new FileInputStream(FILE_NAME));
+            lobbies = (Map<String, Lobby>) inputStream.readObject();
         } catch (IOException e) {
             lobbies = new ConcurrentHashMap<>();
         } catch (ClassNotFoundException e) {
@@ -82,12 +82,12 @@ public class LobbyManager {
         ExecutorService service = Executors.newFixedThreadPool(1);
         service.submit(() -> {
             try {
-                FileOutputStream fout = new FileOutputStream(FILE_NAME);
-                ObjectOutputStream out = new ObjectOutputStream(fout);
-                out.writeObject(lobbies);
-                out.flush();
+                FileOutputStream outputStream = new FileOutputStream(FILE_NAME);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+                objectOutputStream.writeObject(lobbies);
+                objectOutputStream.flush();
                 //closing the stream
-                out.close();
+                objectOutputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
