@@ -1,18 +1,17 @@
 package me.afarrukh.botcode;
 
-import me.afarrukh.botcode.commands.CreateLobbyCommand;
-import me.afarrukh.botcode.commands.DeleteLobbyCommand;
+import me.afarrukh.botcode.commands.lobby.CreateLobbyCommand;
+import me.afarrukh.botcode.commands.lobby.DeleteLobbyCommand;
 import me.afarrukh.botcode.commands.HelpCommand;
-import me.afarrukh.botcode.commands.LatencyCommand;
 import me.afarrukh.botcode.lobby.LobbyManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author Abdullah Farrukh
@@ -35,6 +34,7 @@ public class Bot {
                 GatewayIntent.GUILD_VOICE_STATES,
                 GatewayIntent.GUILD_MESSAGE_REACTIONS,
                 GatewayIntent.GUILD_MESSAGES)
+                .disableCache(CacheFlag.ACTIVITY, CacheFlag.EMOTE, CacheFlag.CLIENT_STATUS)
                 .addEventListeners(new MessageListener())
                 .build().awaitReady();
         commandManager = new CommandManager();

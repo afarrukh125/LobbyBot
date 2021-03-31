@@ -1,9 +1,15 @@
 package me.afarrukh.botcode.lobby;
 
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.IPermissionHolder;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.requests.restaction.RoleAction;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Lobby implements Serializable {
 
@@ -13,21 +19,27 @@ public class Lobby implements Serializable {
     private final String creatorId;
     private final long creationTime;
 
+    Set<String> memberIds;
+
+    private final String roleId;
+
     Lobby(String lobbyName, GuildMessageReceivedEvent evt) {
         this.lobbyName = lobbyName;
         Guild guild = evt.getGuild();
         this.guildId = guild.getId();
-        this.channelId = guild.createTextChannel(lobbyName).complete().getId();
         this.creatorId = evt.getMember().getId();
         this.creationTime = System.currentTimeMillis();
-    }
+        memberIds = new HashSet<>();
 
-    Lobby(String lobbyName, String guildId, String channelId, String creatorId, long creationTime) {
-        this.lobbyName = lobbyName;
-        this.guildId = guildId;
-        this.channelId = channelId;
-        this.creatorId = creatorId;
-        this.creationTime = creationTime;
+        TextChannel channel = guild.createTextChannel(lobbyName).complete();
+        this.channelId = channel.getId();
+
+        RoleAction associatedRole = guild.createRole().setMentionable(false);
+        this.roleId = associatedRole.setName(System.currentTimeMillis()+"").complete().getId();
+
+
+
+
     }
 
     public String getLobbyName() {
@@ -48,5 +60,9 @@ public class Lobby implements Serializable {
 
     public long getCreationTime() {
         return creationTime;
+    }
+
+    public String getRoleId() {
+        return roleId;
     }
 }

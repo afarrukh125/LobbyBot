@@ -1,4 +1,4 @@
-package me.afarrukh.botcode.commands;
+package me.afarrukh.botcode.commands.lobby;
 
 import me.afarrukh.botcode.Bot;
 import me.afarrukh.botcode.Command;
@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.util.List;
 import java.util.Optional;
 
-public class DeleteLobbyCommand extends Command {
+public class DeleteLobbyCommand extends LobbyCommand {
 
     public DeleteLobbyCommand() {
         super("deletelobby");
@@ -23,10 +23,12 @@ public class DeleteLobbyCommand extends Command {
             Lobby deletedLobby = result.get();
             evt.getAuthor()
                     .openPrivateChannel()
-                    .queue(c -> c.sendMessage("Lobby " + deletedLobby.getLobbyName() + " was deleted successfully").queue());
+                    .queue(c -> c.sendMessage("Lobby " + deletedLobby.getLobbyName() + " was deleted successfully")
+                            .queue(m -> this.deleteMessage(evt, deletedLobby)));
         }
         else
-            evt.getAuthor().openPrivateChannel().queue(c -> c.sendMessage("You do not currently have a lobby already").queue());
+            evt.getAuthor().openPrivateChannel().queue(c -> c.sendMessage("You do not currently have a lobby already")
+                    .queue(m -> this.deleteMessage(evt)));
     }
 
     @Override

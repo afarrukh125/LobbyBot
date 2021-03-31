@@ -33,14 +33,16 @@ public class LobbyManager {
         return lobbies.get(userName);
     }
 
-    public Optional<Lobby> createLobby(String lobbyname, GuildMessageReceivedEvent evt) {
+    public Optional<Lobby> createLobby(String lobbyName, GuildMessageReceivedEvent evt) {
         String memberId = evt.getMember().getId();
-        if(lobbies.containsKey(memberId))
-            return Optional.empty();
-        Lobby lobby = new Lobby(lobbyname, evt);
-        lobbies.put(memberId, lobby);
-        serializeToFile();
-        return Optional.of(lobby);
+        if (!lobbies.containsKey(memberId)) {
+            Lobby lobby = new Lobby(lobbyName, evt);
+            lobbies.put(memberId, lobby);
+            serializeToFile();
+            return Optional.of(lobby);
+        }
+        return Optional.empty();
+
     }
 
     public Optional<Lobby> deleteLobby(GuildMessageReceivedEvent evt) {
@@ -48,7 +50,7 @@ public class LobbyManager {
         Guild guild = evt.getGuild();
         Lobby lobby = lobbies.get(memberId);
 
-        if(lobby != null) {
+        if (lobby != null) {
             lobbies.remove(memberId);
             guild.getTextChannelById(lobby.getChannelId()).delete().queue();
             serializeToFile();
