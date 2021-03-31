@@ -53,6 +53,7 @@ public class LobbyManager {
         if (lobby != null) {
             lobbies.remove(memberId);
             guild.getTextChannelById(lobby.getChannelId()).delete().queue();
+            guild.getRoleById(lobby.getRoleId()).delete().queue();
             serializeToFile();
             return Optional.of(lobby);
         }

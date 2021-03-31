@@ -1,9 +1,8 @@
 package me.afarrukh.botcode.lobby;
 
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.IPermissionHolder;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
+import me.afarrukh.botcode.Bot;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.requests.restaction.RoleAction;
 
@@ -35,7 +34,15 @@ public class Lobby implements Serializable {
         this.channelId = channel.getId();
 
         RoleAction associatedRole = guild.createRole().setMentionable(false);
-        this.roleId = associatedRole.setName(System.currentTimeMillis()+"").complete().getId();
+        Role role = associatedRole.setName(System.currentTimeMillis()+"").complete();
+        this.roleId = role.getId();
+
+        Member botMember = guild.getMember(Bot.getInstance().getBotUser().getSelfUser());
+
+        guild.addRoleToMember(evt.getMember(), role).queue();
+        channel.createPermissionOverride(botMember).grant(Permission.VIEW_CHANNEL).queue();
+        channel.createPermissionOverride(guild.getPublicRole()).deny(Permission.VIEW_CHANNEL).queue();
+        channel.createPermissionOverride(role).grant(Permission.VIEW_CHANNEL).grant(Permission.MESSAGE_WRITE).queue();
 
     }
 
