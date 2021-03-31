@@ -37,9 +37,6 @@ public class Lobby implements Serializable {
         RoleAction associatedRole = guild.createRole().setMentionable(false);
         this.roleId = associatedRole.setName(System.currentTimeMillis()+"").complete().getId();
 
-
-
-
     }
 
     public String getLobbyName() {
