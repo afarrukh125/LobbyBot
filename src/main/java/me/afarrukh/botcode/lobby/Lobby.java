@@ -7,8 +7,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.requests.restaction.RoleAction;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Lobby implements Serializable {
 
@@ -17,10 +16,21 @@ public class Lobby implements Serializable {
     private final String channelId;
     private final String creatorId;
     private final long creationTime;
-
     Set<String> memberIds;
-
     private final String roleId;
+
+    private static final List<Permission> BOT_PERMISSIONS = Arrays.asList(
+            Permission.VIEW_CHANNEL,
+            Permission.MESSAGE_WRITE,
+            Permission.MESSAGE_ADD_REACTION,
+            Permission.MESSAGE_READ
+    );
+
+    private static final List<Permission> MEMBER_PERMISSIONS = Arrays.asList(
+            Permission.VIEW_CHANNEL,
+            Permission.MESSAGE_ADD_REACTION,
+            Permission.MESSAGE_WRITE
+    );
 
     Lobby(String lobbyName, GuildMessageReceivedEvent evt) {
         this.lobbyName = lobbyName;
@@ -30,19 +40,22 @@ public class Lobby implements Serializable {
         this.creationTime = System.currentTimeMillis();
         memberIds = new HashSet<>();
 
-        TextChannel channel = guild.createTextChannel(lobbyName).complete();
-        this.channelId = channel.getId();
+        Member botMember = guild.getMember(Bot.getInstance().getBotUser().getSelfUser());
 
         RoleAction associatedRole = guild.createRole().setMentionable(false);
         Role role = associatedRole.setName(System.currentTimeMillis()+"").complete();
         this.roleId = role.getId();
 
-        Member botMember = guild.getMember(Bot.getInstance().getBotUser().getSelfUser());
+        // Create and setup permissions for public, role and bot
+        TextChannel channel = guild.createTextChannel(lobbyName)
+                .addPermissionOverride(guild.getPublicRole(), null, Collections.singletonList(Permission.VIEW_CHANNEL))
+                .addMemberPermissionOverride(botMember.getIdLong(), BOT_PERMISSIONS, null)
+                .addRolePermissionOverride(role.getIdLong(), MEMBER_PERMISSIONS, null)
+                .complete();
+
+        this.channelId = channel.getId();
 
         guild.addRoleToMember(evt.getMember(), role).queue();
-        channel.createPermissionOverride(botMember).grant(Permission.VIEW_CHANNEL).queue();
-        channel.createPermissionOverride(guild.getPublicRole()).deny(Permission.VIEW_CHANNEL).queue();
-        channel.createPermissionOverride(role).grant(Permission.VIEW_CHANNEL).grant(Permission.MESSAGE_WRITE).queue();
 
     }
 
