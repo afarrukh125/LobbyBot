@@ -1,6 +1,6 @@
 package me.afarrukh.botcode.commands.lobby;
 
-import me.afarrukh.botcode.Command;
+import me.afarrukh.botcode.commands.Command;
 import me.afarrukh.botcode.lobby.Lobby;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;

@@ -1,6 +1,6 @@
 package me.afarrukh.botcode.lobby;
 
-import me.afarrukh.botcode.Bot;
+import me.afarrukh.botcode.core.Bot;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -57,6 +57,7 @@ public class Lobby implements Serializable {
 
         guild.addRoleToMember(evt.getMember(), role).queue();
 
+        memberIds.add(creatorId);
     }
 
     public String getLobbyName() {

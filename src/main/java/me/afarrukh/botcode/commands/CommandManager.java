@@ -1,4 +1,4 @@
-package me.afarrukh.botcode;
+package me.afarrukh.botcode.commands;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 

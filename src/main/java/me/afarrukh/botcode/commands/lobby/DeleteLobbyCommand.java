@@ -1,7 +1,6 @@
 package me.afarrukh.botcode.commands.lobby;
 
-import me.afarrukh.botcode.Bot;
-import me.afarrukh.botcode.Command;
+import me.afarrukh.botcode.core.Bot;
 import me.afarrukh.botcode.lobby.Lobby;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 

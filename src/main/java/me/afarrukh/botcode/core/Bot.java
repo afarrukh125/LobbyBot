@@ -1,5 +1,8 @@
-package me.afarrukh.botcode;
+package me.afarrukh.botcode.core;
 
+import me.afarrukh.botcode.MessageListener;
+import me.afarrukh.botcode.commands.Command;
+import me.afarrukh.botcode.commands.CommandManager;
 import me.afarrukh.botcode.commands.lobby.CreateLobbyCommand;
 import me.afarrukh.botcode.commands.lobby.DeleteLobbyCommand;
 import me.afarrukh.botcode.commands.HelpCommand;

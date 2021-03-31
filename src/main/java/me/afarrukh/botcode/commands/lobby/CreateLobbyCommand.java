@@ -1,13 +1,10 @@
 package me.afarrukh.botcode.commands.lobby;
 
-import me.afarrukh.botcode.Bot;
-import me.afarrukh.botcode.Command;
+import me.afarrukh.botcode.core.Bot;
 import me.afarrukh.botcode.lobby.Lobby;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
