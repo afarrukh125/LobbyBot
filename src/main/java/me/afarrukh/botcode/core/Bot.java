@@ -1,6 +1,5 @@
 package me.afarrukh.botcode.core;
 
-import me.afarrukh.botcode.MessageListener;
 import me.afarrukh.botcode.commands.Command;
 import me.afarrukh.botcode.commands.CommandManager;
 import me.afarrukh.botcode.commands.lobby.CreateLobbyCommand;
@@ -9,6 +8,7 @@ import me.afarrukh.botcode.commands.HelpCommand;
 import me.afarrukh.botcode.lobby.LobbyManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -24,9 +24,9 @@ public class Bot {
 
     private static Bot instance;
 
-    private JDA botUser;
-    private CommandManager commandManager;
-    private LobbyManager lobbyManager;
+    private final JDA botUser;
+    private final CommandManager commandManager;
+    private final LobbyManager lobbyManager;
 
     private static String prefix;
 

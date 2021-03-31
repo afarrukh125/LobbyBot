@@ -1,4 +1,6 @@
-package me.afarrukh.botcode.core;
+package me.afarrukh.botcode;
+
+import me.afarrukh.botcode.core.Bot;
 
 import javax.security.auth.login.LoginException;
 
