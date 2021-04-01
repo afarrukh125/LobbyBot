@@ -23,3 +23,6 @@ In this chat you can type away no problem.
 * Move away from serialization. If the `Lobby` class is updated, then it might be necessary to delete
 the `lobby.dat` file entirely, causing consistency issues.
 * Base functionality largely complete, but might not function consistently.
+* JavaDoc comments where possible. I prefer self-documenting code, but commenting holistic 
+  aspects of the program which are unlikely to change such as the purpose of classes can be 
+  good.
