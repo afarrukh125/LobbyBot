@@ -2,6 +2,8 @@ package me.afarrukh.botcode.lobby;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 
@@ -14,7 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
-public class LobbyManager {
+public class LobbyManager implements LobbyEventHandler{
 
     private static final String FILE_NAME = "lobbies.dat";
 
@@ -37,8 +39,10 @@ public class LobbyManager {
         lobbyEventHandler = new DefaultLobbyEventHandler(this);
     }
 
-    public Lobby getLobbyForUser(String userName) {
-        return lobbies.get(userName);
+    public Optional<Lobby> getLobbyForUser(String userId) {
+        if(lobbies.containsKey(userId))
+            return Optional.of(lobbies.get(userId));
+        return Optional.empty();
     }
 
     Collection<Lobby> getAllLobbiesForGuild(Guild guild) {
@@ -95,11 +99,23 @@ public class LobbyManager {
         service.shutdown();
     }
 
+    @Override
     public void handleVoiceJoinEvent(GuildVoiceJoinEvent evt) {
         lobbyEventHandler.handleVoiceJoinEvent(evt);
     }
 
+    @Override
+    public void handleVoiceLeftEvent(GuildVoiceLeaveEvent evt) {
+        lobbyEventHandler.handleVoiceLeftEvent(evt);
+    }
+
+    @Override
     public void handleReactionAddEvent(GuildMessageReactionAddEvent evt) {
         lobbyEventHandler.handleReactionAddEvent(evt);
+    }
+
+    @Override
+    public void handleVoiceMovedEvent(GuildVoiceMoveEvent evt) {
+        lobbyEventHandler.handleVoiceMovedEvent(evt);
     }
 }

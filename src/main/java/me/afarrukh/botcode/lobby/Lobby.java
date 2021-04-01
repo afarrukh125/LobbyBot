@@ -83,4 +83,30 @@ public class Lobby implements Serializable {
     public String getRoleId() {
         return roleId;
     }
+
+    public Set<String> getMemberIds() {
+        return Collections.unmodifiableSet(memberIds);
+    }
+
+    Role getRole() {
+        return Bot.getInstance().getBotUser().getGuildById(guildId).getRoleById(roleId);
+    }
+
+    Guild getGuild() {
+        return Bot.getInstance().getBotUser().getGuildById(guildId);
+    }
+
+    public void addMember(Member member) {
+        Guild guild = getGuild();
+        Role role = getRole();
+        guild.addRoleToMember(member, role).queue();
+        memberIds.add(member.getId());
+    }
+
+    public void removeMember(Member member) {
+        memberIds.remove(member.getId());
+        Guild guild = getGuild();
+        Role role = getRole();
+        guild.removeRoleFromMember(member, role).queue();
+    }
 }
