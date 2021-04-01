@@ -1,4 +1,4 @@
-package me.afarrukh.botcode.core;
+package me.afarrukh.lobbybot.core;
 
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
@@ -10,10 +10,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-/**
- * @author Abdullah Farrukh
- * Created on 23/03/2020 at 16:32
- */
 public class MessageListener extends ListenerAdapter {
 
     @Override

@@ -1,4 +1,4 @@
-package me.afarrukh.botcode.lobby;
+package me.afarrukh.lobbybot.lobby;
 
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;

@@ -1,14 +1,13 @@
-package me.afarrukh.botcode.core;
+package me.afarrukh.lobbybot.core;
 
-import me.afarrukh.botcode.commands.Command;
-import me.afarrukh.botcode.commands.CommandManager;
-import me.afarrukh.botcode.commands.lobby.CreateLobbyCommand;
-import me.afarrukh.botcode.commands.lobby.DeleteLobbyCommand;
-import me.afarrukh.botcode.commands.HelpCommand;
-import me.afarrukh.botcode.lobby.LobbyManager;
+import me.afarrukh.lobbybot.commands.Command;
+import me.afarrukh.lobbybot.commands.CommandManager;
+import me.afarrukh.lobbybot.commands.lobby.CreateLobbyCommand;
+import me.afarrukh.lobbybot.commands.lobby.DeleteLobbyCommand;
+import me.afarrukh.lobbybot.commands.HelpCommand;
+import me.afarrukh.lobbybot.lobby.LobbyManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -16,10 +15,6 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import javax.security.auth.login.LoginException;
 import java.util.Collection;
 
-/**
- * @author Abdullah Farrukh
- * Created on 23/03/2020 at 16:27
- */
 public class Bot {
 
     private static Bot instance;

@@ -1,13 +1,9 @@
-package me.afarrukh.botcode.commands;
+package me.afarrukh.lobbybot.commands;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.*;
 
-/**
- * @author Abdullah Farrukh
- * Created on 23/03/2020 at 16:17
- */
 public class CommandManager {
 
     private Map<String, Command> commands;

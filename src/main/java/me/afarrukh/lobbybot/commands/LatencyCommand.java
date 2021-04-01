@@ -1,14 +1,10 @@
-package me.afarrukh.botcode.commands;
+package me.afarrukh.lobbybot.commands;
 
-import me.afarrukh.botcode.core.Bot;
+import me.afarrukh.lobbybot.core.Bot;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.List;
 
-/**
- * @author Abdullah Farrukh
- * Created on 23/03/2020 at 16:55
- */
 public class LatencyCommand extends Command {
 
     public LatencyCommand() {

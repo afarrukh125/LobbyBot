@@ -1,13 +1,9 @@
-package me.afarrukh.botcode;
+package me.afarrukh.lobbybot;
 
-import me.afarrukh.botcode.core.Bot;
+import me.afarrukh.lobbybot.core.Bot;
 
 import javax.security.auth.login.LoginException;
 
-/**
- * @author Abdullah Farrukh
- * Created on 23/03/2020 at 17:13
- */
 public class Main {
 
     public static void main(String[] args) throws LoginException, InterruptedException {

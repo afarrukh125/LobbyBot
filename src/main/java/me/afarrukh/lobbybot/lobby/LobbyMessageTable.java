@@ -1,12 +1,10 @@
-package me.afarrukh.botcode.lobby;
+package me.afarrukh.lobbybot.lobby;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 class LobbyMessageTable {

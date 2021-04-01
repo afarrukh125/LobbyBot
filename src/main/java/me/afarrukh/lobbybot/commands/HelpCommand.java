@@ -1,6 +1,6 @@
-package me.afarrukh.botcode.commands;
+package me.afarrukh.lobbybot.commands;
 
-import me.afarrukh.botcode.core.Bot;
+import me.afarrukh.lobbybot.core.Bot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
