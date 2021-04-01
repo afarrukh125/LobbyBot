@@ -19,8 +19,8 @@ class LobbyMessageTable {
     }
 
     public Optional<Message> findMessageById(String messageId) {
-        for(Message message : messageTable.values())
-            if(message.getId().equals(messageId))
+        for (Message message : messageTable.values())
+            if (message.getId().equals(messageId))
                 return Optional.of(message);
         return Optional.empty();
     }
@@ -31,21 +31,21 @@ class LobbyMessageTable {
 
     public Optional<Message> getMessageForMember(Member member) {
         Message message = messageTable.get(member);
-        if(message != null)
+        if (message != null)
             return Optional.of(message);
         return Optional.empty();
     }
 
     public Optional<Member> getMemberForMessage(Message message) {
         Member member = messageTable.inverse().get(message);
-        if(member != null)
+        if (member != null)
             return Optional.of(member);
         return Optional.empty();
     }
 
     public void removeMessageForMember(Member member) {
         Message message = messageTable.get(member);
-        if(message != null) {
+        if (message != null) {
             messageTable.remove(member);
             message.delete().queue();
         }

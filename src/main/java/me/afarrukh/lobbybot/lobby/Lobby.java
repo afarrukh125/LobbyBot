@@ -2,7 +2,10 @@ package me.afarrukh.lobbybot.lobby;
 
 import me.afarrukh.lobbybot.core.Bot;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.requests.restaction.RoleAction;
 
@@ -43,7 +46,7 @@ public class Lobby implements Serializable {
         Member botMember = guild.getMember(Bot.getInstance().getBotUser().getSelfUser());
 
         RoleAction associatedRole = guild.createRole().setMentionable(false);
-        Role role = associatedRole.setName(System.currentTimeMillis()+"").complete();
+        Role role = associatedRole.setName(System.currentTimeMillis() + "").complete();
         this.roleId = role.getId();
 
         // Create and setup permissions for public, role and bot

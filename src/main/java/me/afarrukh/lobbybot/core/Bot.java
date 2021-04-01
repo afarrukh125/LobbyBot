@@ -2,9 +2,9 @@ package me.afarrukh.lobbybot.core;
 
 import me.afarrukh.lobbybot.commands.Command;
 import me.afarrukh.lobbybot.commands.CommandManager;
+import me.afarrukh.lobbybot.commands.HelpCommand;
 import me.afarrukh.lobbybot.commands.lobby.CreateLobbyCommand;
 import me.afarrukh.lobbybot.commands.lobby.DeleteLobbyCommand;
-import me.afarrukh.lobbybot.commands.HelpCommand;
 import me.afarrukh.lobbybot.lobby.LobbyManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -49,12 +49,12 @@ public class Bot {
      */
     private void installCommands() {
         commandManager.register(new CreateLobbyCommand())
-                      .register(new DeleteLobbyCommand())
-                      .register(new HelpCommand());
+                .register(new DeleteLobbyCommand())
+                .register(new HelpCommand());
     }
 
     public static void init(String token) throws LoginException, InterruptedException {
-        if(instance != null)
+        if (instance != null)
             throw new IllegalStateException("Bot has already been initialised.");
         instance = new Bot(token);
     }
@@ -66,7 +66,7 @@ public class Bot {
     }
 
     public static Bot getInstance() {
-        if(instance == null)
+        if (instance == null)
             throw new IllegalStateException("Bot has not been initialised. Please use Bot#init() to create the bot");
         return instance;
     }

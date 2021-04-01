@@ -22,7 +22,7 @@ public class HelpCommand extends Command {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("Help");
         StringBuilder sb = new StringBuilder();
-        for(Command command : Bot.getInstance().getCommands())
+        for (Command command : Bot.getInstance().getCommands())
             sb.append("`").append(command.getName()).append("` - ").append(command.getDescription()).append("\n\n");
         eb.setDescription(sb);
         return eb.build();

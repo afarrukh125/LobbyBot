@@ -21,20 +21,19 @@ public class CreateLobbyCommand extends LobbyCommand {
 
         SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 
-        if(params.isEmpty())
+        if (params.isEmpty())
             lobbyName = evt.getMember().getEffectiveName() + "s-lobby-" + dtf.format(new Date());
         else
             lobbyName = joinParams(params);
 
         Optional<Lobby> result = Bot.getInstance().getLobbyManager().createLobby(lobbyName, evt);
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             Lobby createdLobby = result.get();
             evt.getAuthor()
                     .openPrivateChannel()
                     .queue(c -> c.sendMessage("Lobby " + createdLobby.getLobbyName() + " was created successfully")
                             .queue(m -> this.deleteMessage(evt)));
-        }
-        else
+        } else
             evt.getAuthor().openPrivateChannel().queue(c -> c.sendMessage("You already have an existing lobby.")
                     .queue(m -> this.deleteMessage(evt)));
     }

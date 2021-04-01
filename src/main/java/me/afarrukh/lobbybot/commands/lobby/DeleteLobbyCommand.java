@@ -18,14 +18,13 @@ public class DeleteLobbyCommand extends LobbyCommand {
     @Override
     public void execute(GuildMessageReceivedEvent evt, List<String> params) {
         final Optional<Lobby> result = Bot.getInstance().getLobbyManager().deleteLobby(evt);
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             Lobby deletedLobby = result.get();
             evt.getAuthor()
                     .openPrivateChannel()
                     .queue(c -> c.sendMessage("Lobby " + deletedLobby.getLobbyName() + " was deleted successfully")
                             .queue(m -> this.deleteMessage(evt, deletedLobby)));
-        }
-        else
+        } else
             evt.getAuthor().openPrivateChannel().queue(c -> c.sendMessage("You do not currently have a lobby already")
                     .queue(m -> this.deleteMessage(evt)));
     }

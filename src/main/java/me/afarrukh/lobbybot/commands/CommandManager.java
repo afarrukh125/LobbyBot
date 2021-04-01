@@ -6,7 +6,7 @@ import java.util.*;
 
 public class CommandManager {
 
-    private Map<String, Command> commands;
+    private final Map<String, Command> commands;
 
     public CommandManager() {
         commands = new HashMap<>();
@@ -19,7 +19,7 @@ public class CommandManager {
         commandOptional.ifPresent(command -> {
             String[] tokens = event.getMessage().getContentRaw().substring(1).toLowerCase().split(" ", 2);
             List<String> paramList = new ArrayList<>();
-            if(hasParams(tokens)) {
+            if (hasParams(tokens)) {
                 final String params = tokens[1].trim();
                 paramList = new ArrayList<>(Arrays.asList(params.split(" ")));
             }
@@ -30,7 +30,7 @@ public class CommandManager {
     public CommandManager register(Command command) {
         commands.put(command.getName().toLowerCase(), command);
 
-        for(String alias : command.getAliases())
+        for (String alias : command.getAliases())
             commands.put(alias.toLowerCase(), command);
 
         return this;

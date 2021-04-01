@@ -1,7 +1,9 @@
 package me.afarrukh.lobbybot.lobby;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
@@ -32,16 +34,16 @@ public class DefaultLobbyEventHandler implements LobbyEventHandler {
         String memberId = evt.getMember().getId();
 
         Optional<Lobby> lobbyOptional = lobbyManager.getLobbyForUser(memberId);
-        if(lobbyOptional.isPresent()) {
+        if (lobbyOptional.isPresent()) {
             Lobby lobby = lobbyOptional.get();
             LobbyMessageTable table = pendingMessages.get(lobby);
             Optional<Message> reactedMessage = table.findMessageById(evt.getMessageId());
-            if(reactedMessage.isPresent()) {
+            if (reactedMessage.isPresent()) {
                 Message message = reactedMessage.get();
                 Optional<Member> targetMemberOptional = table.getMemberForMessage(message);
                 if (lobby.getChannelId().equals(channelId) && lobby.getCreatorId().equals(memberId) && targetMemberOptional.isPresent()) {
                     Member member = targetMemberOptional.get();
-                    if(lobby.getMemberIds().contains(member.getId()))
+                    if (lobby.getMemberIds().contains(member.getId()))
                         return;
                     switch (evt.getReaction().getReactionEmote().getEmoji()) {
                         case CHECK_EMOTE:
@@ -58,14 +60,14 @@ public class DefaultLobbyEventHandler implements LobbyEventHandler {
     public void handleVoiceJoinEvent(GuildVoiceJoinEvent evt) {
         Member newMember = evt.getMember();
         List<Member> channelMembers = evt.getChannelJoined().getMembers();
-        if(channelMembers != null) {
+        if (channelMembers != null) {
             for (Member member : channelMembers) {
-                if(member.equals(newMember))
+                if (member.equals(newMember))
                     continue;
                 Optional<Lobby> lobbyResult = lobbyManager.getLobbyForUser(member.getId());
                 if (lobbyResult.isPresent()) {
                     Lobby lobby = lobbyResult.get();
-                    if(lobby.getMemberIds().contains(newMember.getId()))
+                    if (lobby.getMemberIds().contains(newMember.getId()))
                         return;
                     LobbyMessageTable table = pendingMessages.get(lobby);
                     if (table == null) {
@@ -113,7 +115,7 @@ public class DefaultLobbyEventHandler implements LobbyEventHandler {
                 Lobby lobby = lobbyResult.get();
                 if (lobby.getMemberIds().contains(evt.getMember().getId()))
                     lobby.removeMember(evt.getMember());
-                if(pendingMessages.get(lobby) != null)
+                if (pendingMessages.get(lobby) != null)
                     pendingMessages.get(lobby).removeMessageForMember(evt.getMember());
             }
         }
