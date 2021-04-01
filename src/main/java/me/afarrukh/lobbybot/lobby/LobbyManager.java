@@ -14,6 +14,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Manages all lobbies created across all Discord guilds that the bot is in
+ * Uses an {@link LobbyEventHandler} to decide what to do with any reactions, messages, join events,
+ * that might be invoked.
+ */
 public class LobbyManager implements LobbyEventHandler {
 
     private static final String FILE_NAME = "lobbies.dat";

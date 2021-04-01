@@ -15,6 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * A default implementation of {@link LobbyEventHandler} that controls what happens to the
+ * associated data structures, channels, and roles when members of a Discord guild interact with
+ * the bot.
+ */
 public class DefaultLobbyEventHandler implements LobbyEventHandler {
 
     private final LobbyManager lobbyManager;

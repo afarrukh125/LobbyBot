@@ -12,6 +12,11 @@ import net.dv8tion.jda.api.requests.restaction.RoleAction;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * A {@link Lobby} binds together all the information we know about our abstract concept of lobbies.
+ * We need to know the guild the lobby is in, the channel ID that is linked to this lobby, and the
+ * ID of the owner. These fields are stored as primitive types for intuitive serialization.
+ */
 public class Lobby implements Serializable {
 
     private final String lobbyName;

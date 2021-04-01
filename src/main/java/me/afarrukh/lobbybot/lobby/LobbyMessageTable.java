@@ -7,6 +7,16 @@ import net.dv8tion.jda.api.entities.Message;
 
 import java.util.Optional;
 
+/**
+ * For a given lobby, this class aims to map the "acceptance" messages for a given member. For instance,
+ * if member A has a lobby, then that lobby has a lobby table that maps, for any potential members that join
+ * the voice chat, a message that the owner of the lobby needs to accept or reject.
+ *
+ * Once the request (invoked by simply joining the voice chat) has been accepted or rejected, the message
+ * can be safely deleted and cleared from this table.
+ *
+ * Note we use Guava's BiMap class so this table is inherently a 1-1 invertible mapping.
+ */
 class LobbyMessageTable {
     private final BiMap<Member, Message> messageTable;
 
