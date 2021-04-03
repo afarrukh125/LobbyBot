@@ -38,9 +38,8 @@ public class DefaultLobbyEventHandler implements LobbyEventHandler {
         String channelId = evt.getChannel().getId();
         String memberId = evt.getMember().getId();
 
-        Optional<Lobby> lobbyOptional = lobbyManager.getLobbyForUser(memberId);
-        if (lobbyOptional.isPresent()) {
-            Lobby lobby = lobbyOptional.get();
+        Lobby lobby = lobbyManager.getLobbyForUser(memberId);
+        if (lobby != null) {
             LobbyMessageTable table = pendingMessages.get(lobby);
             Optional<Message> reactedMessage = table.findMessageById(evt.getMessageId());
             if (reactedMessage.isPresent()) {
@@ -69,9 +68,8 @@ public class DefaultLobbyEventHandler implements LobbyEventHandler {
             for (Member member : channelMembers) {
                 if (member.equals(newMember))
                     continue;
-                Optional<Lobby> lobbyResult = lobbyManager.getLobbyForUser(member.getId());
-                if (lobbyResult.isPresent()) {
-                    Lobby lobby = lobbyResult.get();
+                Lobby lobby = lobbyManager.getLobbyForUser(member.getId());
+                if (lobby != null) {
                     if (lobby.getMemberIds().contains(newMember.getId()))
                         return;
                     LobbyMessageTable table = pendingMessages.get(lobby);
@@ -115,9 +113,8 @@ public class DefaultLobbyEventHandler implements LobbyEventHandler {
 
     private void handleRemoval(GenericGuildVoiceEvent evt, List<Member> members) {
         for (Member member : members) {
-            Optional<Lobby> lobbyResult = lobbyManager.getLobbyForUser(member.getId());
-            if (lobbyResult.isPresent()) {
-                Lobby lobby = lobbyResult.get();
+            Lobby lobby = lobbyManager.getLobbyForUser(member.getId());
+            if (lobby != null) {
                 if (lobby.getMemberIds().contains(evt.getMember().getId()))
                     lobby.removeMember(evt.getMember());
                 if (pendingMessages.get(lobby) != null)

@@ -42,10 +42,8 @@ public class LobbyManager implements LobbyEventHandler {
         lobbyEventHandler = new DefaultLobbyEventHandler(this);
     }
 
-    public Optional<Lobby> getLobbyForUser(String userId) {
-        if (lobbies.containsKey(userId))
-            return Optional.of(lobbies.get(userId));
-        return Optional.empty();
+    public Lobby getLobbyForUser(String userId) {
+        return lobbies.get(userId);
     }
 
     public Optional<Lobby> createLobby(String lobbyName, GuildMessageReceivedEvent evt) {
