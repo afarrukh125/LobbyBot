@@ -58,6 +58,8 @@ public class DefaultLobbyEventHandler implements LobbyEventHandler {
 
     @Override
     public void handleVoiceJoinEvent(GuildVoiceJoinEvent evt) {
+        // When a new user joins a voice channel, we need to check if they aren't already in the lobby for that voice
+        // channel and if they aren't allow the existing members to approve of their membership
         Member newMember = evt.getMember();
         List<Member> channelMembers = evt.getChannelJoined().getMembers();
         for (Member member : channelMembers) {
