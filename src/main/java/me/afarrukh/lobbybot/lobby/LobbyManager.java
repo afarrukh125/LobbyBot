@@ -42,11 +42,11 @@ public class LobbyManager implements LobbyEventHandler {
         lobbyEventHandler = new DefaultLobbyEventHandler(this);
     }
 
-    public Lobby getLobbyForUser(String userId) {
-        return lobbies.get(userId);
+    public Optional<Lobby> getLobbyForUser(String userId) {
+        return Optional.ofNullable(lobbies.get(userId));
     }
 
-    public Optional<Lobby> createLobby(String lobbyName, GuildMessageReceivedEvent evt) {
+    public Optional<Lobby> createAndReturnLobbyWithName(String lobbyName, GuildMessageReceivedEvent evt) {
         String memberId = evt.getMember().getId();
         if (!lobbies.containsKey(memberId)) {
             Lobby lobby = new Lobby(lobbyName, evt);

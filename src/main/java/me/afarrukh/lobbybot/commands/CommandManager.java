@@ -12,19 +12,8 @@ public class CommandManager {
         commands = new HashMap<>();
     }
 
-    public void handleCommand(String commandName, GuildMessageReceivedEvent event) {
-        Optional<Command> commandOptional = commandFromName(commandName);
-
-        // Adds any space separated strings to the parameter list
-        commandOptional.ifPresent(command -> {
-            String[] tokens = event.getMessage().getContentRaw().substring(1).toLowerCase().split(" ", 2);
-            List<String> paramList = new ArrayList<>();
-            if (hasParams(tokens)) {
-                final String params = tokens[1].trim();
-                paramList = new ArrayList<>(Arrays.asList(params.split(" ")));
-            }
-            command.execute(event, paramList);
-        });
+    public void handleCommand(String commandName, GuildMessageReceivedEvent evt) {
+        commandFromName(commandName).ifPresent(command -> execute(evt, command));
     }
 
     public CommandManager register(Command command) {
@@ -34,6 +23,16 @@ public class CommandManager {
             commands.put(alias.toLowerCase(), command);
 
         return this;
+    }
+
+    private void execute(GuildMessageReceivedEvent evt, Command command) {
+        String[] tokens = evt.getMessage().getContentRaw().substring(1).toLowerCase().split(" ", 2);
+        List<String> paramList = new ArrayList<>();
+        if (hasParams(tokens)) {
+            final String params = tokens[1].trim();
+            paramList = new ArrayList<>(Arrays.asList(params.split(" ")));
+        }
+        command.execute(evt, paramList);
     }
 
     public Collection<Command> getCommands() {
